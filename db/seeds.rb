@@ -8,9 +8,19 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 require "faker"
+User.destroy_all
+Article.destroy_all
+5.times do |count|
+    User.create!(
+        email: "admin#{count+1}@gmail.com" ,
+        password: "admin"
+    )
+
+end
 30.times do
     Article.create!(
         title: Faker::Quote.most_interesting_man_in_the_world,
-        content: Faker::TvShows::BojackHorseman.quote
+        content: Faker::TvShows::BojackHorseman.quote,
+        user: User.order('RANDOM()').first
     )
 end
